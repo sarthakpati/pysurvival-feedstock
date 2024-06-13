@@ -11,13 +11,14 @@ source:
   sha256: 57cb567323fa314ceaf17fe39745b007855606cb1304a4124a78334ff9d03707
 
 build:
-  number: 3
+  number: 4
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [py>38 or win]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
   host:
     - numpy
@@ -34,7 +35,6 @@ requirements:
     - scikit-learn
     - scipy
     - pytorch >=1.7.0
-    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
