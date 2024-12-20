@@ -1,5 +1,6 @@
 {% set name = "pysurvival" %}
 {% set version = "0.1.2" %}
+{% set python_min = "3.9" %}
 
 
 package:
@@ -12,7 +13,7 @@ source:
 
 build:
   number: 5
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: true  # [py>38 or win]
 
 requirements:
@@ -23,7 +24,7 @@ requirements:
   host:
     - numpy
     - pip
-    - python
+    - python {{ python_min }}
     - setuptools
   run:
     - matplotlib-base
@@ -31,15 +32,21 @@ requirements:
     - pandas
     - progressbar
     - pyarrow
-    - python
+    - python >={{ python_min }}
     - scikit-learn
     - scipy
     - pytorch >=1.7.0
+    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
     - pysurvival
     - pysurvival.datasets
+  commands:
+    - pip check
+  requires:
+    - python {{ python_min }}
+    - pip
 
 about:
   home: https://www.pysurvival.io
