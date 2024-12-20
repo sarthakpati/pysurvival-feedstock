@@ -13,7 +13,7 @@ source:
 build:
   number: 5
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [py>312 or win]
+  skip: true  # [py>311]
 
 requirements:
   build:
